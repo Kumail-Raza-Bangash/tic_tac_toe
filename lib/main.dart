@@ -13,7 +13,7 @@ class TicTacToeApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Tic Tac Toe',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.purple,
         ),
         home: TicTacToeScreen(),
       ),
