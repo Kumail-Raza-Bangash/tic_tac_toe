@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(TicTacToeApp());
+  runApp(const TicTacToeApp());
 }
 
 class TicTacToeApp extends StatelessWidget {
+  const TicTacToeApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -15,22 +17,24 @@ class TicTacToeApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.purple,
         ),
-        home: TicTacToeScreen(),
+        home: const TicTacToeScreen(),
       ),
     );
   }
 }
 
 class TicTacToeScreen extends StatelessWidget {
+  const TicTacToeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<TicTacToeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tic Tac Toe'),
+        title: const Text('Tic Tac Toe'),
       ),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
         ),
         itemCount: 9,
@@ -51,7 +55,7 @@ class TicTacToeScreen extends StatelessWidget {
               child: Center(
                 child: Text(
                   provider.board[index],
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 48,
                   ),
                 ),
@@ -75,14 +79,14 @@ class TicTacToeScreen extends StatelessWidget {
                 Provider.of<TicTacToeProvider>(context, listen: false).restartGame();
                 Navigator.of(context).pop();
               },
-              child: Text('Restart'),
+              child: const Text('Restart'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
-              child: Text('Home'),
+              child: const Text('Home'),
             ),
           ],
         );
