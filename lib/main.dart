@@ -104,10 +104,31 @@ class TicTacToeProvider with ChangeNotifier {
   }
 
   bool checkWinner() {
-    // Implement your winning conditions and return true if a player wins.
-    // For simplicity, I'm returning true after every move.
+  // Check rows
+  for (int i = 0; i < 3; i++) {
+    if (board[i * 3] != '' && board[i * 3] == board[i * 3 + 1] && board[i * 3 + 1] == board[i * 3 + 2]) {
+      return true;
+    }
+  }
+
+  // Check columns
+  for (int i = 0; i < 3; i++) {
+    if (board[i] != '' && board[i] == board[i + 3] && board[i + 3] == board[i + 6]) {
+      return true;
+    }
+  }
+
+  // Check diagonals
+  if (board[0] != '' && board[0] == board[4] && board[4] == board[8]) {
     return true;
   }
+  if (board[2] != '' && board[2] == board[4] && board[4] == board[6]) {
+    return true;
+  }
+
+  return false;
+}
+
 
   void restartGame() {
     board = List.filled(9, '');
