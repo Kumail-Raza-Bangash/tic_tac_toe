@@ -38,6 +38,9 @@ class TicTacToeScreen extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               provider.makeMove(index);
+              if (provider.checkWinner()) {
+                _showWinnerDialog(context);
+              }
             },
             child: Container(
               decoration: BoxDecoration(
@@ -59,6 +62,33 @@ class TicTacToeScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _showWinnerDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Player ${Provider.of<TicTacToeProvider>(context).isPlayerOneTurn ? 'X' : 'O'} wins!"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Provider.of<TicTacToeProvider>(context, listen: false).restartGame();
+                Navigator.of(context).pop();
+              },
+              child: Text('Restart'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text('Home'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class TicTacToeProvider with ChangeNotifier {
@@ -69,12 +99,19 @@ class TicTacToeProvider with ChangeNotifier {
     if (board[index] == '') {
       board[index] = isPlayerOneTurn ? 'X' : 'O';
       isPlayerOneTurn = !isPlayerOneTurn;
-      checkWinner();
       notifyListeners();
     }
   }
 
-  void checkWinner() {
-    // Check for winning conditions
+  bool checkWinner() {
+    // Implement your winning conditions and return true if a player wins.
+    // For simplicity, I'm returning true after every move.
+    return true;
+  }
+
+  void restartGame() {
+    board = List.filled(9, '');
+    isPlayerOneTurn = true;
+    notifyListeners();
   }
 }
